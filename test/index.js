@@ -16,7 +16,7 @@ function outputFile( response, jPath ){
     } );
 }
 
-http.createServer(function( request, response ) {
+http.createServer(function( request, response ){
     let jURL = url.parse( request.url, true ),
         jPathName = decodeURIComponent( jURL.pathname );
 
