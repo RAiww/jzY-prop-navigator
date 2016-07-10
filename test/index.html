@@ -1,0 +1,75 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>瀏覽器裝置判別</title>
+</head><body>
+
+
+
+<style>
+#LxLog {
+}
+.title {
+    margin: 24px 0 12px 0;
+    padding: 4px 8px;
+    background: burlywood;
+}
+.userAgent {
+    margin: 12px 0;
+    padding: 8px;
+    background: beige;
+    color: #666666;
+}
+.idList {
+    margin: 12px 0;
+    padding: 12px 24px;
+    background: palegreen;
+    font-size: 1.06em;
+}
+</style>
+
+
+
+<div id="LxLog"></div>
+
+
+
+<script src="/lib/naviVerify.js"></script>
+<script src="/test/jDeviceList.js"></script>
+<script>
+    var HElem_log = document.querySelector('#LxLog');
+
+    function jInputLog( jTitle, jUserAgent ){
+        var HElem = document.createElement('div'),
+            HElem_title = document.createElement('div'),
+            HElem_userAgent = document.createElement('div'),
+            HElem_IDList = document.createElement('div'),
+            jNavigatorID = naviVerify( jUserAgent ),
+            ArrIDList = [];
+
+        HElem_title.className = 'title';
+        HElem_title.innerText = jTitle;
+        HElem_log.appendChild( HElem_title );
+
+        HElem_userAgent.className = 'userAgent';
+        HElem_userAgent.innerText = jUserAgent;
+        HElem_log.appendChild( HElem_userAgent );
+
+        for(var jTitle in jNavigatorID ){
+            ArrIDList.push( jTitle + ' : ' + jNavigatorID[ jTitle ] );
+        }
+
+        HElem_IDList.className = 'idList';
+        HElem_IDList.innerHTML = '---- ' + ArrIDList.join('<br />---- ');
+        HElem_log.appendChild( HElem_IDList );
+    }
+
+    jInputLog( '目前裝置', navigator.userAgent );
+
+    for(var p = 0, jItem; jItem = jDeviceList[ p++ ] ; ){
+        var jTitle = jItem.os + ' - ' + jItem.browser + '（收集資料）';
+        jInputLog( jTitle, jItem.info );
+    }
+</script>
+
+
+
+</body></html>
